@@ -27,6 +27,8 @@ const Cart = () => {
   } = useStateContext();
 
   const handleCheckout = async () => {
+    localStorage['total'] = totalPrice;
+    localStorage['purchase-id'] = Math. floor(Math. random() * 1000000);
     const stripe = await getStripe();
 
     const response = await fetch('/api/stripe', {

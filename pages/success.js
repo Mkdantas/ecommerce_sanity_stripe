@@ -6,9 +6,12 @@ import { useStateContext } from '../context/StateContext';
 
 const Success = () => {
   const { setCartItems, setTotalPrice, setTotalQuantities } = useStateContext();
+  const [total, setTotal] = useState(0)
+  const [purchaseID, setPurchaseID] = useState('')
   
   useEffect(() => {
-    localStorage.clear();
+    setPurchaseID(localStorage['purchase-id'])
+    setTotal(localStorage['total'])
     setCartItems([]);
     setTotalPrice(0);
     setTotalQuantities(0);
@@ -20,7 +23,11 @@ const Success = () => {
         <p className="icon">
           <BsBagCheckFill />
         </p>
-        <h2>Thank you for your order!</h2>
+        <h2 className="purchase-id">Thank you for your order! 
+        <br />
+        Order: {purchaseID}
+        <br />
+        Total: $ {total || 0} </h2>
         <p className="email-msg">Check your email inbox for the receipt.</p>
         <p className="description">
           If you have any questions, please email
@@ -28,6 +35,8 @@ const Success = () => {
             order@example.com
           </a>
         </p>
+
+        
         <Link href="/">
           <button type="button" width="300px" className="btn">
             Continue Shopping
